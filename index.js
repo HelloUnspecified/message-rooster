@@ -1,10 +1,17 @@
-var express = require("express");
-var app = express();
+const express = require("express");
+const app = express();
+var cors = require("cors");
 
-app.get("/", function(req, res) {
-  res.send("Hello World!");
-});
+app.use(
+  cors({
+    credentials: true,
+    origin: true,
+  })
+);
+app.options("*", cors());
 
-app.listen(3000, function() {
-  console.log("Example app listening on port 3000!");
+app.get("/", (req, res) => res.send("Working!!!"));
+
+app.listen(process.env.PORT || 3000, function () {
+  console.log("server running on port 3000", "");
 });
