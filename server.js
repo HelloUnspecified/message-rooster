@@ -7,6 +7,10 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get("/", function (req, res) {
+  res.send("Hello World!");
+});
+
 app.post("/sms", (req, res) => {
   console.log(`Incoming message from ${req.body.From}: ${req.body.Body}`);
   const twiml = new MessagingResponse();
