@@ -2,11 +2,12 @@ require("dotenv").config();
 
 const http = require("http");
 const express = require("express");
+
 const app = express();
 const bodyParser = require("body-parser");
-const MessagingResponse = require("twilio").twiml.MessagingResponse;
+const { MessagingResponse } = require('twilio').twiml;
 const cors = require("cors");
-const sendSms = require('./sendSms');
+const sendSms = require("./sendSms");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -27,7 +28,7 @@ app.post("/sms", (req, res) => {
   const twiml = new MessagingResponse();
 
   twiml.message(
-    "Thanks for reaching out to Unspecified! We ❤️ connecting with people and making awesome happen! What can we help you with today?"
+    'Thanks for reaching out to Unspecified! We ❤️ connecting with people and making awesome happen! What can we help you with today?'
   );
 
   res.writeHead(200, { "Content-Type": "text/xml" });
@@ -36,6 +37,6 @@ app.post("/sms", (req, res) => {
   sendSms.notifyAdmins({ messageBody });
 });
 
-http.createServer(app).listen(process.env.PORT || 3000, function () {
-  console.log("server running on port 3000", "");
+http.createServer(app).listen(process.env.PORT || 3000, () => {
+  console.log('server running on port 3000', '');
 });
